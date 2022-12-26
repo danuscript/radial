@@ -31,12 +31,12 @@ const Circle = ({ color1, color2, rotate, top, left }) => {
         style={{
           ...sharedStyles,
           background: `repeating-linear-gradient(
-        to right,
-        var(--${color1}),
-        var(--${color1}) 50%,
-        var(--${color2}) 50%,
-        var(--${color2}) 100%
-      )`,
+            to right,
+            var(--${color1}),
+            var(--${color1}) 50%,
+            var(--${color2}) 50%,
+            var(--${color2}) 100%
+          )`,
           zIndex: 1,
           mixBlendMode: 'multiply',
           transition: 'transform 0.3s ease-in-out'
