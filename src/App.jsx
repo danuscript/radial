@@ -1,14 +1,49 @@
 import './App.css';
-import Circle from './components/Circle';
+import Board from './components/Board';
+import React, { useContext, useEffect } from 'react';
+import { GlobalContext, GlobalProvider } from './context/GlobalContext';
 
-function App() {
+const App = () => {
+  return (
+    <GlobalProvider>
+      <Main />
+    </GlobalProvider>
+  );
+};
+
+const Main = () => {
+  const { circles, level, win, won, moves, setLevel } = useContext(GlobalContext);
+  useEffect(() => {
+    const won = circles.every((circle, index) => (
+      circle === level.circles[index].winPosition
+    ));
+    if (won) {
+      win();
+    }
+  }, [circles, level]);
   return (
     <>
       <h1>radial</h1>
-      <div className='board'>
-        <Circle color1='geraldine' color2='tangerineYellow' rotate={30} left={-27} />
-        <Circle color1='lightCobaltBlue' color2='tangerineYellow' rotate={-30} left={27} />
-        <Circle color1='geraldine' color2='lightCobaltBlue' rotate={90} top={47} left={0} />
+      <h3 className='level'>level {level.number}</h3>
+      <Board />
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '0 15px',
+      }}>
+        <div>
+          <p>moves: {moves}</p>
+          {won && <div style={{ display: 'flex', gap: '8px' }}>
+            <p>solved.</p>
+            <p 
+              style={{textDecoration: 'underline', cursor: 'pointer'}}
+              onClick={() => setLevel(level.next)}
+            >next?</p>
+          </div>}
+        </div>
+        <div>
+          <p>goal</p>
+        </div>
       </div>
     </>
   );

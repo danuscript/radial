@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 
-const Circle = ({ color1, color2, rotate, top, left }) => {
+const Circle = ({ color1, color2, angle, top, left, positions, index }) => {
 
-  const [rotation, setRotation] = useState(rotate);
+  const [rotation, setRotation] = useState(angle);
+
+  const { changePosition, won, move } = useContext(GlobalContext);
 
   const handleClick = () => {
-    setRotation(rotation + 180);
+    if (!won) {
+      setRotation(rotation + 360 / positions);
+      changePosition(index);
+      move();
+    }
   };
 
   const sharedStyles = {
     transform: `translateX(${left}px) rotate(${rotation}deg)`,
-    top
+    transition: 'transform 0.3s ease-in-out',
+    top,
   };
 
   return (
@@ -39,7 +47,6 @@ const Circle = ({ color1, color2, rotate, top, left }) => {
           )`,
           zIndex: 1,
           mixBlendMode: 'multiply',
-          transition: 'transform 0.3s ease-in-out'
         }}
       />
 

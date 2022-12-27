@@ -17,14 +17,21 @@ body {
 }
 
 h1 {
-  margin: auto;
   text-align: center;
+}
+
+p {
+  margin-bottom: auto;
 }
 
 .board {
   display: flex;
   justify-content: center;
   position: relative;
+}
+
+.level {
+  text-align: center;
 }
 
 .circle {
